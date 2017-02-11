@@ -1,0 +1,34 @@
+<%= render 'layouts/header' %>
+
+<div class="reservation">
+	<div class="container">
+		<div>		
+		<h2>Reservation Details</h2>
+		<table>
+			<tr><td>Confirmation #</td><td><%= @reservation.rcrd_loc %></td></tr>
+			<tr><td>Passenger</td> <td><%= @reservation.last_name %>, <%= @reservation.first_name %></td> </tr>
+			<tr><td></td><td>(<%= @reservation.email %>)</td></tr>
+			<tr><td>A-List Status</td><td><% if @reservation.a_list %>Yes<% else %>No<% end %></td></tr>
+		</table>
+		</div>
+		
+		<div>
+		<h2>Flights</h2>
+		<table class='segments'>
+			<tr><th>Airport</th> <th>Flt Time</th> <th>Check-in</th></tr>
+			<% @segments.each do |s| %>
+			<tr><td><%= s.origin %></td> <td><%= flight_time(s.flt_time) %></td> <td><%= flight_time(s.checkin_time) %></td></tr>
+			<% end %>
+		</table>
+		</div>
+		
+		<div class="actions">
+			<%= link_to "Remove Reservation", reservation_path(@reservation.rcrd_loc), method: :delete, 
+				data: { confirm: "Delete this reservation?" } %>
+		</div>
+		
+		<div>
+			<%= link_to "<< Back", root_path %>
+		</div>
+	</div>
+</div>
